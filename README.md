@@ -23,17 +23,37 @@ npm install
 
 ### Section 3: Configuration et Démarrage Rapide
 
-## Configuration
-Créez un fichier `.env` à la racine du projet et configurez les variables suivantes :
-- `DB_HOST=localhost`
-- `DB_USER=utilisateur`
-- `DB_PASS=motdepasse`
+## Configuration de l'Environnement
+Pour configurer votre environnement de développement local, suivez les étapes ci-dessous. Ces étapes vous aideront à préparer toutes les configurations nécessaires pour l'exécution de l'application localement sans compromettre la sécurité des données sensibles.
 
-## Démarrage Rapide
-Pour démarrer le serveur, exécutez :
-```bash
-npm start
-```
+### Configuration
+1. **Copier le fichier de configuration d'exemple** :
+   Le fichier `.env.example` contient les clés des variables d'environnement nécessaires pour le projet sans les valeurs sensibles. Commencez par copier ce fichier en un fichier `.env` qui contiendra vos valeurs locales.
+
+   Exécutez la commande suivante à la racine de votre projet :
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Remplir le fichier `.env`** :
+   Ouvrez le fichier `.env` nouvellement créé et ajoutez les valeurs spécifiques pour votre configuration. Assurez-vous de ne jamais commettre ce fichier dans votre dépôt pour éviter de divulguer des informations sensibles.
+
+### Démarrage Rapide
+Après avoir configuré vos variables d'environnement, vous êtes prêt à démarrer le serveur. Suivez ces étapes pour lancer l'application :
+
+1. **Installer les dépendances** :
+   Avant de démarrer le serveur pour la première fois, vous devez installer les dépendances nécessaires en exécutant :
+   ```bash
+   npm install
+   ```
+
+2. **Démarrer l'application** :
+   Utilisez la commande suivante pour démarrer l'application. Cela lancera votre serveur local et l'application sera accessible selon les configurations définies dans le fichier `.env`.
+   ```bash
+   npm start
+   ```
+
+En suivant ces instructions, vous assurez une configuration appropriée de votre environnement de développement local et un démarrage rapide de l'application, permettant une transition fluide pour les nouveaux développeurs et une préparation adéquate pour les déploiements et tests locaux.
 
 ### Section 4: Utilisation
 
