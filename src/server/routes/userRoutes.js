@@ -1,11 +1,11 @@
 // src/server/routes/userRoutes.js
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 // Exemple de contrôleurs (à créer dans le fichier correspondant)
-const { getUser, addUser } = require('../api/userController');
+import { getUser, addUser } from '../api/userController.js';
 
 router.get('/users', getUser);
 router.post('/users', addUser);
 
-module.exports = router;
+export default router;

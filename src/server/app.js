@@ -1,32 +1,31 @@
 // src/server/app.js
 import express from 'express';
-import { json } from 'express';
 import { config } from 'dotenv';
-import errorHandler from './middleware/errorHandler';
-import userRoutes from './routes/userRoutes';
-import authRoutes from './routes/authRoutes';
-import reservationRoutes from './routes/reservationRoutes';
+import helmet from 'helmet';
+import cors from 'cors';
+// import errorHandler from './middleware/errorHandler.js';
+// import userRoutes from './routes/userRoutes.js';
+// import authRoutes from './routes/authRoutes.js';
+// import reservationRoutes from './routes/reservationRoutes.js';
 
+// Charger les variables d'environnement
 config();
 
 const app = express();
 
-app.use(json());  // Middleware pour parser les corps de requêtes JSON
-app.use('/api', userRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/reservations', reservationRoutes);
+// Middleware pour parser le JSON
+app.use(express.json());
 
-// Middleware de gestion des erreurs doit être juste avant la définition du port et le démarrage du serveur
-app.use(errorHandler);
+// Middleware de sécurité
+app.use(helmet());
+app.use(cors());
 
-// Middleware de gestion des erreurs spécifiques
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send('Une erreur interne est survenue');
-});
+// Utilisation des routes
+// app.use('/api/users', userRoutes);
+// app.use('/api/auth', authRoutes);
+// app.use('/api/reservations', reservationRoutes);
 
-// Définition du port et démarrage du serveur
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Middleware de gestion des erreurs
+// app.use(errorHandler);
+
+export default app;

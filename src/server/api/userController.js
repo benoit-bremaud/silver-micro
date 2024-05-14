@@ -1,8 +1,8 @@
 // src/server/api/userController.js
-exports.getUser = (req, res) => {
+export function getUser(_req, res) {
     res.send('Obtenir les informations de l’utilisateur');
-};
+}
 
-exports.addUser = (req, res) => {
+export function addUser(_req, res) {
     res.send('Ajouter un nouvel utilisateur');
-};
+}
