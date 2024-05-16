@@ -50,3 +50,20 @@ describe('Auth Controller', () => {
       });
   });
 });
+// Compare this snippet from test/backend/authController.test.js:
+/**
+ * Importation des dépendances
+ */
+describe('Auth Controller', () => {
+    describe('POST /api/auth/logout', () => {
+        it('should return a 200 status and a success message', (done) => {
+            chai.request(app)
+                .post('/api/auth/logout')
+                .end((_err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('message').eql('Déconnexion réussie');
+                    done();
+                });
+        });
+    });
+});
