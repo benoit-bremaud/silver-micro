@@ -32,12 +32,13 @@ export const loginUser = async (req, res) => {
 
     // Générer un token JWT
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
+      expiresIn: process.env.TOKEN_EXPIRY,
     });
 
     // Envoyer le token au client
     res.json({ token });
   } catch (error) {
+    // En cas d'erreur serveur, envoyer un message d'erreur
     res.status(500).json({ error: 'Server error' });
   }
 };

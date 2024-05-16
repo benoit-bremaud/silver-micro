@@ -23,6 +23,7 @@ router.post('/register', registerUser);
  * @param {string} password.body.required - Mot de passe de l'utilisateur
  * @returns {object} 200 - Token JWT si la connexion est réussie
  * @returns {Error} 401 - Identifiants invalides
+ * @returns {Error} 500 - Erreur serveur
  */
 router.post('/login', loginUser);
 
