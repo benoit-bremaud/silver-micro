@@ -50,12 +50,16 @@ export const loginUser = async (req, res) => {
  * @returns {Promise<void>}
  */
 export const logoutUser = async (req, res) => {
+  console.log('LogoutUser');
   const token = req.header('Authorization').replace('Bearer ', '');
   if (!token) {
+    console.log('TokenMissing');
     return res.status(401).send({ error: 'TokenMissing', message: 'Token is required for logout' });
   }
+  console.log('Token', token);
 
   try {
+    console.log('VerifyToken');
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const expiry = decoded.exp - Math.floor(Date.now() / 1000);
 
@@ -64,6 +68,7 @@ export const logoutUser = async (req, res) => {
 
     res.status(200).send({ message: 'Logout successful' });
   } catch (error) {
+    console.log('ServerError', error.message);
     res.status(500).send({ error: 'ServerError', message: 'An error occurred while logging out' });
   }
 };

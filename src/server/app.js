@@ -22,6 +22,7 @@ app.use(cors());
 app.use('/api/auth', authRoutes); // Assure-toi que cette ligne est présente
 app.use('/api', reservationRoutes);
 
+
 // Middleware de gestion des erreurs
 app.use(errorHandler);
 
