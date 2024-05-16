@@ -1,6 +1,7 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import redisClient from '../config/redisClient.js';
 
 /**
  * Contrôleur pour gérer la connexion de l'utilisateur.
@@ -40,5 +41,29 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     // En cas d'erreur serveur, envoyer un message d'erreur
     res.status(500).json({ error: 'Server error' });
+  }
+};
+/**
+ * Contrôleur pour gérer la déconnexion de l'utilisateur.
+ * @param {Object} req - La requête HTTP
+ * @param {Object} res - La réponse HTTP
+ * @returns {Promise<void>}
+ */
+export const logoutUser = async (req, res) => {
+  const token = req.header('Authorization').replace('Bearer ', '');
+  if (!token) {
+    return res.status(401).send({ error: 'TokenMissing', message: 'Token is required for logout' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const expiry = decoded.exp - Math.floor(Date.now() / 1000);
+
+    // Ajouter le token à Redis avec une durée de vie égale à son expiration
+    redisClient.set(token, 'invalid', 'EX', expiry);
+
+    res.status(200).send({ message: 'Logout successful' });
+  } catch (error) {
+    res.status(500).send({ error: 'ServerError', message: 'An error occurred while logging out' });
   }
 };

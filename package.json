@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "chai-http": "^4.4.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -18,7 +19,9 @@
     "joi": "^17.13.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.6.1",
-    "mongoose": "^8.3.4"
+    "mongoose": "^8.3.4",
+    "redis": "^4.6.13",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.5",

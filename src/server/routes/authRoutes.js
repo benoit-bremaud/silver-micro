@@ -1,6 +1,6 @@
 import express from 'express';
 import { registerUser } from '../controllers/userController.js';
-import { loginUser } from '../controllers/authController.js';
+import { loginUser, logoutUser } from '../controllers/authController.js';
 
 const router = express.Router();
 
@@ -26,5 +26,14 @@ router.post('/register', registerUser);
  * @returns {Error} 500 - Erreur serveur
  */
 router.post('/login', loginUser);
+
+/**
+ * Route POST pour la déconnexion de l'utilisateur.
+ * @route POST /api/auth/logout
+ * @group Auth - Opérations liées à l'authentification
+ * @returns {object} 200 - Message de succès
+ * @returns {Error} 500 - ServerError
+ */
+router.post('/logout', logoutUser);
 
 export default router;
