@@ -1,24 +1,31 @@
 import jwt from 'jsonwebtoken';
 import redisClient from '../config/redisClient.js';
 
-const authMiddleware = async (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
+/**
+ * Middleware pour vérifier l'authentification de l'utilisateur
+ * @param {Object} req - La requête HTTP
+ * @param {Object} res - La réponse HTTP
+ * @param {Function} next - La fonction next pour passer au middleware suivant
+ */
+export const authenticateUser = async (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+
   if (!token) {
-    return res.status(401).send({ error: 'TokenMissing', message: 'Token is required for authentication' });
+    return res.status(401).send({ error: 'Authentication required' });
   }
 
   try {
-    const isBlacklisted = await redisClient.getAsync(token);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Vérifier si le token est dans la liste noire
+    const isBlacklisted = await redisClient.get(`blacklist_${token}`);
     if (isBlacklisted) {
-      return res.status(401).send({ error: 'TokenInvalid', message: 'Token has been invalidated' });
+      return res.status(401).send({ error: 'Token invalid' });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).send({ error: 'TokenInvalid', message: 'Invalid token' });
+    res.status(401).send({ error: 'Invalid token' });
   }
 };
-
-export default authMiddleware;
