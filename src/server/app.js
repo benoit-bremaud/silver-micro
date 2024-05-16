@@ -2,7 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import authRoutes from './routes/authRoutes.js';
 import reservationRoutes from './routes/reservationRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
@@ -11,11 +10,6 @@ import errorHandler from './middleware/errorHandler.js';
 dotenv.config();
 
 const app = express();
-
-// Connexion à la base de données MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected successfully'))
-  .catch(err => console.log('MongoDB connection error:', err));
 
 // Middleware pour parser le JSON
 app.use(express.json());
