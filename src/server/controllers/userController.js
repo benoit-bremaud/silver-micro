@@ -1,37 +1,34 @@
 import User from '../models/User.js';
-import { validateRegister } from '../validations/userValidation.js';
+import { validateUser } from '../validations/userValidation.js';
 
 /**
- * Contrôleur pour enregistrer un nouvel utilisateur
- * @param {Object} req - Requête HTTP
- * @param {Object} res - Réponse HTTP
+ * Contrôleur pour l'enregistrement d'un nouvel utilisateur
+ * @param {Object} req - La requête HTTP
+ * @param {Object} res - La réponse HTTP
  */
 export const registerUser = async (req, res) => {
-  // Validation des données d'entrée à l'aide de Joi
-  const { error } = validateRegister(req.body);
-  if (error) {
-    return res.status(400).send(error.details.map(detail => detail.message));
-  }
+  const { error } = validateUser(req.body);
+  if (error) return res.status(400).send({ error: 'InvalidData', message: error.details[0].message });
 
-  // Vérification si l'email existe déjà dans la base de données
   try {
-    const emailExist = await User.findOne({ email: req.body.email });
-    if (emailExist) {
-      return res.status(400).send('Email already exists');
-    }
+    let user = await User.findOne({ email: req.body.email });
+    if (user) return res.status(400).send({ error: 'EmailExists', message: 'Email already exists' });
 
-    // Création de l'utilisateur après validation et vérification de l'email
-    const user = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password
-    });
+    user = new User(req.body);
+    await user.save();
 
-    // Sauvegarder l'utilisateur dans la base de données
-    const savedUser = await user.save();
-    res.status(201).send({ user: savedUser._id });
-  } catch (err) {
-    // Gérer les erreurs lors de la sauvegarde
-    res.status(400).send(err);
+    // Exclure le mot de passe de la réponse
+    const userResponse = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      __v: user.__v,
+    };
+
+    res.status(201).send(userResponse);
+  } catch (error) {
+    res.status(500).send({ error: 'ServerError', message: 'An error occurred while creating the user' });
   }
 };

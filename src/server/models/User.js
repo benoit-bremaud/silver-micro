@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-// Création du schéma pour le modèle utilisateur
 /**
  * Schéma de l'utilisateur pour la base de données MongoDB
  * @typedef {Object} User
@@ -28,7 +27,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Password is required'],
     minlength: 6
   }
-});
+}, { timestamps: true }); // Ajout des timestamps
 
 /**
  * Middleware de pré-sauvegarde pour hasher le mot de passe de l'utilisateur
