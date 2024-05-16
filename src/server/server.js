@@ -1,13 +1,15 @@
-// Path: src/server/routes/reservationRoutes.js
-// Pour démarer le serveur, vous devez exécuter le fichier src/server/server.js.
+import dotenv from 'dotenv';
+import app from './app.js'; // Assurez-vous que le chemin est correct
+import connectDB from './config/db.js';
 
-// Importer l'application Express
-import app from './app.js';  // Assurez-vous que le chemin est correct
+dotenv.config();
 
-// Définir le port
+// Connexion à MongoDB
+connectDB();
+
 const PORT = process.env.PORT || 3000;
 
 // Démarrer le serveur
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`); // eslint-disable-line no-console
+  console.log(`Server is running on port ${PORT}`);
 });

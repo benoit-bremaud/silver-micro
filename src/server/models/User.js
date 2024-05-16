@@ -2,6 +2,13 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 // Création du schéma pour le modèle utilisateur
+/**
+ * Schéma de l'utilisateur pour la base de données MongoDB
+ * @typedef {Object} User
+ * @property {string} username - Nom d'utilisateur unique et requis
+ * @property {string} email - Adresse email unique et requise
+ * @property {string} password - Mot de passe hashé de l'utilisateur
+ */
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -23,18 +30,27 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// Hashage du mot de passe avant de sauvegarder le modèle utilisateur
-userSchema.pre('save', async function (next) {
-  // Vérifier si le mot de passe est modifié pour éviter de le re-hasher accidentellement
+/**
+ * Middleware de pré-sauvegarde pour hasher le mot de passe de l'utilisateur
+ * avant de le stocker dans la base de données.
+ */
+userSchema.pre('save', async function(next) {
+  // Ne hasher le mot de passe que s'il a été modifié (ou est nouveau)
   if (!this.isModified('password')) return next();
 
-  // Hashage du mot de passe avec un salt généré par bcrypt
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+  try {
+    // Générer un sel et hasher le mot de passe
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
-// Compilation du modèle basé sur le schéma
+/**
+ * Modèle de l'utilisateur basé sur le schéma défini
+ */
 const User = mongoose.model('User', userSchema);
 
 export default User;
