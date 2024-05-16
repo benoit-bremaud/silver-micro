@@ -7,6 +7,10 @@ import bcrypt from 'bcryptjs';
  * @property {string} username - Nom d'utilisateur unique et requis
  * @property {string} email - Adresse email unique et requise
  * @property {string} password - Mot de passe hashé de l'utilisateur
+ * @property {Date} createdAt - Date de création de l'utilisateur
+ * @property {Date} updatedAt - Date de mise à jour de l'utilisateur
+ * @property {string} _id - Identifiant unique de l'utilisateur
+ * @property {number} __v - Version du document
  */
 const userSchema = new mongoose.Schema({
   username: {
