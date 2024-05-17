@@ -1,10 +1,17 @@
-// Path: src/server/models/Reservation.js
-// Compare this snippet from src/server/app.js:
-
-// Importer les modules Express
 import mongoose from 'mongoose';
 
-// Définir le schéma de la réservation
+/**
+ * Schéma de la réservation pour la base de données MongoDB
+ * 
+ * @typedef {Object} Reservation
+ * @property {Date} reservationDateTime - Date et heure de la réservation
+ * @property {number} tableNumber - Numéro de la table réservée
+ * @property {number} numberOfGuests - Nombre d'invités pour la réservation
+ * @property {Date} createdAt - Date de création de la réservation
+ * @property {Date} updatedAt - Date de mise à jour de la réservation
+ * @property {string} _id - Identifiant unique de la réservation
+ * @property {number} __v - Version du document
+ */
 const reservationSchema = new mongoose.Schema({
   reservationDateTime: { type: Date, required: true },
   tableNumber: { type: Number, required: true },

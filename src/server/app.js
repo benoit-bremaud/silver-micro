@@ -21,6 +21,7 @@ app.use(cors());
 // Utilisation des routes
 app.use('/api/auth', authRoutes); // Assure-toi que cette ligne est présente
 app.use('/api', reservationRoutes);
+app.use('/api/reservations', reservationRoutes);
 
 
 // Middleware de gestion des erreurs
