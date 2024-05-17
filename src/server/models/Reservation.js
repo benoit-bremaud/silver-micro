@@ -10,7 +10,7 @@ const reservationSchema = new mongoose.Schema({
   tableNumber: { type: Number, required: true },
   numberOfGuests: { type: Number, required: true }
 }, {
-  timestamps: true
+  timestamps: true, versionKey: '__v'
 });
 
 // Création des indices

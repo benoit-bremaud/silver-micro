@@ -11,6 +11,7 @@ import {
  * Créer une nouvelle réservation
  * @param {Object} req - La requête HTTP
  * @param {Object} res - La réponse HTTP
+ * @returns {Promise<Object>} - La réservation créée
  */
 export const createReservation = async (req, res) => {
   try {
@@ -54,6 +55,7 @@ export const getReservationById = async (req, res) => {
  * Mettre à jour une réservation par ID
  * @param {Object} req - La requête HTTP
  * @param {Object} res - La réponse HTTP
+ * @returns {Promise<Object>} - La réservation mise à jour
  */
 export const updateReservation = async (req, res) => {
   try {
