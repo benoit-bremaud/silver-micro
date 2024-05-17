@@ -97,7 +97,3 @@ Distribué sous la Licence Apache 2.0. Voir `LICENSE` pour plus d'informations.
 
 ## Contact
 Pour toute question, contactez-nous via [email](mailto:support@example.com).
-
----
-
-Le fichier `README.md` est maintenant complet. Vous pouvez le copier et le coller directement dans votre projet. Si vous avez besoin d'autres sections ou de modifications, n'hésitez pas à demander.
