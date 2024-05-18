@@ -21,8 +21,6 @@ Installez les dépendances :
 npm install
 ```
 
-### Section 3: Configuration et Démarrage Rapide
-
 ## Configuration de l'Environnement
 Pour configurer votre environnement de développement local, suivez les étapes ci-dessous. Ces étapes vous aideront à préparer toutes les configurations nécessaires pour l'exécution de l'application localement sans compromettre la sécurité des données sensibles.
 
@@ -55,7 +53,37 @@ Après avoir configuré vos variables d'environnement, vous êtes prêt à déma
 
 En suivant ces instructions, vous assurez une configuration appropriée de votre environnement de développement local et un démarrage rapide de l'application, permettant une transition fluide pour les nouveaux développeurs et une préparation adéquate pour les déploiements et tests locaux.
 
-### Section 4: Utilisation
+### Mise à jour des Dépendances
+
+Pour mettre à jour toutes les dépendances et nettoyer les fichiers obsolètes, suivez ces étapes :
+
+1. **Installer `npm-check-updates` globalement :**
+   ```bash
+   npm install -g npm-check-updates
+   ```
+
+2. **Mettre à jour les dépendances dans `package.json` :**
+   ```bash
+   ncu -u
+   ```
+
+3. **Installer les nouvelles versions des dépendances :**
+   ```bash
+   npm install
+   ```
+
+4. **Nettoyer les dépendances obsolètes :**
+   ```bash
+   npm prune
+   ```
+
+5. **(Optionnel) Supprimer `node_modules` et réinstaller toutes les dépendances :**
+   ```bash
+   rm -rf node_modules
+   npm install
+   ```
+
+En suivant ces instructions, vous pouvez vous assurer que vos dépendances sont toujours à jour et que votre environnement de développement reste propre et sans fichiers obsolètes.
 
 ## Utilisation
 Voici comment vous pouvez faire des requêtes à l'API :
@@ -73,32 +101,19 @@ Voici comment vous pouvez faire des requêtes à l'API :
   GET /reservations
   ```
 
-### Section 5: Documentation API
-
 ## Documentation API
 Consultez [ce lien](http://exemple.com/documentation) pour la documentation complète.
-
-### Section 6: Contribuer
 
 ## Contribuer
 Pour contribuer au projet, veuillez consulter notre [guide de contribution](./CONTRIBUTING.md).
 
-### Section 7: Code de Conduite
-
 ## Code de Conduite
 Nous adhérons à certaines normes de comportement communautaire. Pour plus de détails, consultez le [Code de Conduite](./CODE_OF_CONDUCT.md).
-
-### Section 8: Licence
 
 ## Licence
 Distribué sous la Licence Apache 2.0. Voir `LICENSE` pour plus d'informations.
 
-### Section 9: Contact
-
 ## Contact
 Pour toute question, contactez-nous via [email](mailto:support@example.com).
-<<<<<<< HEAD
 
 ---
-=======
->>>>>>> 57f870802eb892b91b30490e0db4efae0ca038b4
