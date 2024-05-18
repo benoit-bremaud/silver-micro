@@ -57,5 +57,7 @@ describe('User Controller', () => {
 
       findOneStub.restore();
     });
+
+    
   });
 });

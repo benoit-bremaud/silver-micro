@@ -79,3 +79,5 @@ export const deleteReservation = async (req, res) => {
     res.status(500).send({ error: 'ServerError', message: error.message });
   }
 };
+
+// src/server/controllers/userController.js

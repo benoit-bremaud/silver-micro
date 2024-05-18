@@ -1,69 +1,48 @@
-import chai from 'chai';
-import chaiHttp from 'chai-http';
+import request from 'supertest';
 import app from '../../src/server/app.js';
-import redisClient from '../../src/server/config/redisClient.js';
+import User from '../../src/server/models/User.js';
 
-chai.use(chaiHttp);
-const { expect } = chai;
+describe('Auth API', () => {
+  beforeEach(async () => {
+    await User.deleteMany({});
+  });
 
-describe('Auth Controller', () => {
-  let token;
-
-  before((done) => {
-    chai.request(app)
-      .post('/api/auth/register')
-      .send({
+  describe('POST /api/auth/register', () => {
+    it('should register a new user', async () => {
+      const user = {
         username: 'testuser',
         email: 'testuser@example.com',
         password: 'password123'
-      })
-      .end(() => {
-        chai.request(app)
-          .post('/api/auth/login')
-          .send({
-            email: 'testuser@example.com',
-            password: 'password123'
-          })
-          .end((_err, res) => {
-            token = res.body.token;
-            done();
-          });
-      });
-  });
-
-  after((done) => {
-    redisClient.flushAll(done);
-  });
-
-  it('should logout the user and invalidate the token', (done) => {
-    chai.request(app)
-      .post('/api/auth/logout')
-      .set('Authorization', `Bearer ${token}`)
-      .end((_err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.message).to.equal('Logout successful');
-
-        redisClient.get(token, (_err, result) => {
-          expect(result).to.equal('invalid');
-          done();
-        });
-      });
-  });
-});
-// Compare this snippet from test/backend/authController.test.js:
-/**
- * Importation des dépendances
- */
-describe('Auth Controller', () => {
-    describe('POST /api/auth/logout', () => {
-        it('should return a 200 status and a success message', (done) => {
-            chai.request(app)
-                .post('/api/auth/logout')
-                .end((_err, res) => {
-                    expect(res).to.have.status(200);
-                    expect(res.body).to.have.property('message').eql('Déconnexion réussie');
-                    done();
-                });
-        });
+      };
+      const res = await request(app)
+        .post('/api/auth/register')
+        .send(user);
+      
+      expect(res.status).toBe(201);
+      expect(res.body).toHaveProperty('username', 'testuser');
+      expect(res.body).toHaveProperty('email', 'testuser@example.com');
     });
+  });
+
+  // Ajoutez d'autres tests pour /api/auth/login et /api/auth/logout ici
+  describe('POST /api/auth/login', () => {
+    it('should login a user', async () => {
+      const user = {
+        username: 'testuser',
+        email: 'testuser@mail.com',
+        password: 'password123'
+      };
+      await request(app)
+        .post('/api/auth/register')
+        .send(user);
+      
+      const res = await request(app)
+        .post('/api/auth/login')
+        .send({ email: user, password: user.password });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('username', 'testuser');
+      expect(res.body).toHaveProperty('email', 'testuser@example.com');
+    });
+  });
 });

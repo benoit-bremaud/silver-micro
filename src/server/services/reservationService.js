@@ -46,3 +46,5 @@ export const updateReservation = async (id, updates) => {
 export const deleteReservation = async (id) => {
   return await Reservation.findByIdAndDelete(id);
 };
+
+// src/server/controllers/reservationController.js

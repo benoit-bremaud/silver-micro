@@ -29,3 +29,18 @@ export const authenticateUser = async (req, res, next) => {
     res.status(401).send({ error: 'Invalid token' });
   }
 };
+
+/**
+ * Middleware pour vérifier les rôles de l'utilisateur
+ * @param {Array} roles - Les rôles autorisés
+ */
+export const authorizeUser = (...roles) => {
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.roles)) {
+      return res.status(403).send({ error: 'Unauthorized' });
+    }
+    next();
+  };
+};
+
+// Path: src/server/middleware/authMiddleware.js
