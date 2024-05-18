@@ -1,48 +1,19 @@
-// src/server/routes/reservationRoutes.js
-import express from 'express';
-import {
-  createReservation,
-  getReservations,
-  getReservationById,
-  updateReservation,
-  deleteReservation
-} from '../controllers/reservationController.js';
+// reservationRoutes.js : Routes pour la gestion des réservations.
 
-const router = express.Router();
+// Path: src/server/routes/reservationRoutes.js
 
-/**
- * @route POST /api/reservations
- * @desc Créer une nouvelle réservation
- * @access Public
- */
-router.post('/reservations', createReservation);
+import { Router } from 'express';
+const router = Router();
+import { createReservation, getReservation, updateReservation, cancelReservation, checkAvailability } from '../controllers/reservationController.js';
 
-/**
- * @route GET /api/reservations
- * @desc Obtenir toutes les réservations
- * @access Public
- */
-router.get('/reservations', getReservations);
+// Endpoints pour les réservations
+router.post('/', createReservation);
+router.get('/:reservationId', getReservation);
+router.put('/:reservationId', updateReservation);
+router.delete('/:reservationId', cancelReservation);
 
-/**
- * @route GET /api/reservations/:id
- * @desc Obtenir une réservation par ID
- * @access Public
- */
-router.get('/reservations/:id', getReservationById);
+// Endpoint pour la disponibilité des tables
+router.get('/availability', checkAvailability);
 
-/**
- * @route PUT /api/reservations/:id
- * @desc Mettre à jour une réservation par ID
- * @access Public
- */
-router.put('/reservations/:id', updateReservation);
-
-/**
- * @route DELETE /api/reservations/:id
- * @desc Supprimer une réservation par ID
- * @access Public
- */
-router.delete('/reservations/:id', deleteReservation);
-
+// Exporter les routes de réservation
 export default router;

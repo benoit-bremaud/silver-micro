@@ -1,11 +1,16 @@
-// src/server/routes/userRoutes.js
+// userRoutes.js : Routes pour la gestion des utilisateurs.
+
+// Path: src/server/routes/userRoutes.js
+
 import { Router } from 'express';
 const router = Router();
+import { createUser, getUser, updateUser, deleteUser } from '../controllers/userController.js';
 
-// Exemple de contrôleurs (à créer dans le fichier correspondant)
-import { getUser, addUser } from '../api/userController.js';
+// Endpoints pour les utilisateurs
+router.post('/', createUser);
+router.get('/:userId', getUser);
+router.put('/:userId', updateUser);
+router.delete('/:userId', deleteUser);
 
-router.get('/users', getUser);
-router.post('/users', addUser);
-
+// Exporter les routes utilisateur
 export default router;

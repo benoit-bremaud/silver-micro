@@ -1,7 +1,7 @@
-// Path: src/server/models/Reservation.js
-// Compare this snippet from src/server/app.js:
+// Reservation.js : Modèle de données pour les réservations.
 
-// Importer les modules Express
+// Path: src/server/models/Reservation.js
+
 import mongoose from 'mongoose';
 
 // Définir le schéma de la réservation

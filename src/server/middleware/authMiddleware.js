@@ -1,3 +1,7 @@
+// authMiddleware.js : Vérifie l'authentification des utilisateurs.
+
+// Path: src/server/middleware/authMiddleware.js
+
 import jwt from 'jsonwebtoken';
 import redisClient from '../config/redisClient.js';
 
@@ -43,4 +47,5 @@ export const authorizeUser = (...roles) => {
   };
 };
 
-// Path: src/server/middleware/authMiddleware.js
+// Exporter les middlewares
+export default authenticateUser;

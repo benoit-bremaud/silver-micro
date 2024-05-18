@@ -1,5 +1,6 @@
+// reservations.js : Définit les endpoints pour la gestion des réservations.
+
 // Path: src/server/api/reservations.js
-// Permet de gérer les requêtes pour les réservations.
 
 // Importation du modèle Reservation
 import Reservation from '../models/Reservation.js';

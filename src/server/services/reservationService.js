@@ -1,4 +1,8 @@
-// src/server/services/reservationService.js
+// reservationService.js : Fournit des services pour la gestion des réservations.
+
+// Path: src/server/services/reservationService.js
+
+// Importer le modèle de données de la réservation
 import Reservation from '../models/Reservation.js';
 
 /**
@@ -47,4 +51,11 @@ export const deleteReservation = async (id) => {
   return await Reservation.findByIdAndDelete(id);
 };
 
-// src/server/controllers/reservationController.js
+// Exporter les services de réservation
+export default {
+  createReservation,
+  getReservations,
+  getReservationById,
+  updateReservation,
+  deleteReservation
+};

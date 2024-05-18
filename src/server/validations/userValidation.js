@@ -1,3 +1,8 @@
+// userValidation.js : Valide les données des utilisateurs.
+
+// Path: src/server/validations/userValidation.js
+
+// Importer le module de validation Joi
 import Joi from 'joi';
 
 /**
@@ -18,3 +23,6 @@ const userSchema = Joi.object({
 export const validateUser = (user) => {
   return userSchema.validate(user);
 };
+
+// Exportation de la validation de l'utilisateur
+export default validateUser;

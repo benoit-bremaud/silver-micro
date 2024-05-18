@@ -1,3 +1,8 @@
+// authService.js : Fournit des services pour l'authentification.
+
+// Path: src/server/services/authService.js
+
+// Importer les dépendances
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -27,5 +32,24 @@ export const authenticateUser = async (email, password) => {
     expiresIn: process.env.TOKEN_EXPIRY,
   });
 
+  // Retourner le token
   return { token };
 };
+
+/**
+ * Service pour gérer la déconnexion de l'utilisateur.
+ * @param {string} token - Token JWT de l'utilisateur
+ * @returns {Promise<void>}
+ */
+export const logoutUser = async (token) => {
+  console.log('LogoutUser');
+  if (!token) {
+    console.log('TokenMissing');
+    throw new Error('Token missing');
+  }
+  // Supprimer le token de la base de données Redis
+  await redisClient.del(token);
+};
+
+// Exportation des services
+export default { authenticateUser, logoutUser };

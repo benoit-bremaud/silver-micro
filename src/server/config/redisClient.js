@@ -1,3 +1,7 @@
+// redisClient.js : Configuration du client Redis pour le stockage en cache ou la gestion des sessions.
+
+// Path: src/server/config/redisClient.js
+
 import redis from 'redis';
 
 const redisClient = redis.createClient({

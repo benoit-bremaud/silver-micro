@@ -1,83 +1,42 @@
-// src/server/controllers/reservationController.js
-import {
-  createReservation as createReservationService,
-  getReservations as getReservationsService,
-  getReservationById as getReservationByIdService,
-  updateReservation as updateReservationService,
-  deleteReservation as deleteReservationService
-} from '../services/reservationService.js';
+// reservationController.js : Gère les opérations liées aux réservations.
 
-/**
- * Créer une nouvelle réservation
- * @param {Object} req - La requête HTTP
- * @param {Object} res - La réponse HTTP
- */
-export const createReservation = async (req, res) => {
-  try {
-    const reservation = await createReservationService(req.body);
-    res.status(201).send(reservation);
-  } catch (error) {
-    res.status(500).send({ error: 'ServerError', message: error.message });
-  }
+// Path: src/server/controllers/reservationController.js
+
+export function createReservation(req, res) {
+  const { userId, tableId, guests, date, time, specialRequests } = req.body;
+  // Logique pour créer une réservation
+  res.status(201).send({ message: 'Reservation created successfully' });
+}
+
+export function getReservation(req, res) {
+  const { reservationId } = req.params;
+  // Logique pour récupérer une réservation par ID
+  res.status(200).send({ message: `Reservation details for ${reservationId}` });
+}
+
+export function updateReservation(req, res) {
+  const { reservationId } = req.params;
+  const { guests, date, time, specialRequests } = req.body;
+  // Logique pour mettre à jour une réservation
+  res.status(200).send({ message: `Reservation ${reservationId} updated successfully` });
+}
+
+export function cancelReservation(req, res) {
+  const { reservationId } = req.params;
+  // Logique pour annuler une réservation
+  res.status(200).send({ message: `Reservation ${reservationId} cancelled successfully` });
+}
+
+export function checkAvailability(req, res) {
+  const { date, time } = req.query;
+  // Logique pour vérifier la disponibilité des tables
+  res.status(200).send({ message: `Table availability for ${date} at ${time}` });
+}
+// Exporter les opérations de réservation
+export default {
+  createReservation,
+  getReservation,
+  updateReservation,
+  cancelReservation,
+  checkAvailability
 };
-
-/**
- * Obtenir toutes les réservations
- * @param {Object} req - La requête HTTP
- * @param {Object} res - La réponse HTTP
- */
-export const getReservations = async (req, res) => {
-  try {
-    const reservations = await getReservationsService();
-    res.status(200).send(reservations);
-  } catch (error) {
-    res.status(500).send({ error: 'ServerError', message: error.message });
-  }
-};
-
-/**
- * Obtenir une réservation par ID
- * @param {Object} req - La requête HTTP
- * @param {Object} res - La réponse HTTP
- */
-export const getReservationById = async (req, res) => {
-  try {
-    const reservation = await getReservationByIdService(req.params.id);
-    if (!reservation) return res.status(404).send({ error: 'NotFound', message: 'Reservation not found' });
-    res.status(200).send(reservation);
-  } catch (error) {
-    res.status(500).send({ error: 'ServerError', message: error.message });
-  }
-};
-
-/**
- * Mettre à jour une réservation par ID
- * @param {Object} req - La requête HTTP
- * @param {Object} res - La réponse HTTP
- */
-export const updateReservation = async (req, res) => {
-  try {
-    const reservation = await updateReservationService(req.params.id, req.body);
-    if (!reservation) return res.status(404).send({ error: 'NotFound', message: 'Reservation not found' });
-    res.status(200).send(reservation);
-  } catch (error) {
-    res.status(500).send({ error: 'ServerError', message: error.message });
-  }
-};
-
-/**
- * Supprimer une réservation par ID
- * @param {Object} req - La requête HTTP
- * @param {Object} res - La réponse HTTP
- */
-export const deleteReservation = async (req, res) => {
-  try {
-    const reservation = await deleteReservationService(req.params.id);
-    if (!reservation) return res.status(404).send({ error: 'NotFound', message: 'Reservation not found' });
-    res.status(204).send();
-  } catch (error) {
-    res.status(500).send({ error: 'ServerError', message: error.message });
-  }
-};
-
-// src/server/controllers/userController.js

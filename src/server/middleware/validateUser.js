@@ -1,3 +1,7 @@
+// validateUser.js : Valide les données des utilisateurs.
+
+// Path: src/server/middleware/validateUser.js
+
 import { check, validationResult } from 'express-validator';
 
 /**

@@ -1,3 +1,8 @@
+// User.js : Modèle de données pour les utilisateurs.
+
+// Path: src/server/models/User.js
+
+// Importer les dépendances
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
@@ -61,4 +66,5 @@ userSchema.pre('save', async function(next) {
  */
 const User = mongoose.model('User', userSchema);
 
+// Exporter le modèle de l'utilisateur
 export default User;
