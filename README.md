@@ -97,5 +97,8 @@ Distribué sous la Licence Apache 2.0. Voir `LICENSE` pour plus d'informations.
 
 ## Contact
 Pour toute question, contactez-nous via [email](mailto:support@example.com).
+<<<<<<< HEAD
 
 ---
+=======
+>>>>>>> 57f870802eb892b91b30490e0db4efae0ca038b4
