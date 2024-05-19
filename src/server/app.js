@@ -8,7 +8,7 @@ import reservationRoutes from './routes/reservationRoutes.js';
 import restaurantRoutes from './routes/restaurantRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
-import authMiddleware from './middleware/authMiddleware.js';
+import { authMiddleware } from './middleware/authMiddleware.js';
 
 // Charger les variables d'environnement
 dotenv.config();
@@ -16,10 +16,10 @@ dotenv.config();
 const app = express();
 
 // Middleware de base
-app.use(express.json());
-app.use(morgan('dev'));
-app.use(helmet());
-app.use(cors());
+app.use(express.json()); // Parser le corps de la requête en JSON
+app.use(morgan('dev')); // Logger HTTP
+app.use(helmet()); // Sécuriser les en-têtes HTTP
+app.use(cors()); // Activer CORS
 
 // Routes publiques
 app.use('/api/v1/auth', authRoutes);
@@ -32,9 +32,9 @@ app.use(helmet());
 app.use(cors());
 
 // Routes protégées
-app.use('/api/v1/reservations', reservationRoutes);
-app.use('/api/v1/restaurants', restaurantRoutes);
-app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/reservations', authMiddleware, reservationRoutes);
+app.use('/api/v1/restaurants', authMiddleware, restaurantRoutes);
+app.use('/api/v1/users', authMiddleware, userRoutes);
 
 // Middleware de gestion des erreurs
 app.use(errorHandler);

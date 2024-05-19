@@ -51,5 +51,26 @@ export const logoutUser = async (token) => {
   await redisClient.del(token);
 };
 
+/**
+ * Service pour générer un token JWT.
+ * @param {string} id - ID de l'utilisateur
+ * @param {string} roles - Rôles de l'utilisateur
+ * @returns {string} - Token JWT
+ * @throws {Error} - Si une erreur s'est produite
+ */
+export const generateToken = (id, roles) => {
+  try {
+    // Générer un token JWT
+    const token = jwt.sign({ id, roles }, process.env.JWT_SECRET, {
+      expiresIn: process.env.TOKEN_EXPIRY,
+    });
+
+    return token;
+  } catch (error) {
+    throw new Error('Token generation failed');
+  }
+};
+
+
 // Exportation des services
-export default { authenticateUser, logoutUser };
+export default { authenticateUser, logoutUser, generateToken };

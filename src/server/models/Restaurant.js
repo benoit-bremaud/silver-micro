@@ -6,10 +6,12 @@ import mongoose from 'mongoose';
 
 // Définir le schéma du restaurant
 const restaurantSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true},
   address: { type: String, required: true },
   phone: { type: String, required: true },
-  tables: { type: Number, required: true }
+  email: { type: String, required: true, unique: true},
+  openingHours: { type: String, required: true },
+  tables: { type: mongoose.Schema.Types.ObjectId, ref: 'Table'}
 }, {
   timestamps: true
 });
@@ -25,4 +27,4 @@ restaurantSchema.index({ id: 1 }); // index simple
 const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
 // Exporter le modèle du restaurant
-export default Restaurant;
+export default mongoose.model('Restaurant', restaurantSchema);

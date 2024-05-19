@@ -5,14 +5,13 @@
 // Importer le modèle de restaurant
 import Restaurant from '../models/Restaurant.js';
 
-// Importer le modèle de table
-import Table from '../models/Table.js';
 
 // Créer un nouveau restaurant
-export const createRestaurant = async (restaurantData) => {
+export const createRestaurant = async ( name, address, phone, email, openingHours ) => {
   try {
-    return await Restaurant.create(restaurantData);
+    return await Restaurant.create( name, address, phone, email, openingHours );
   } catch (error) {
+    console.log(error.message);
     throw new Error(error.message);
   }
 };
@@ -22,6 +21,7 @@ export const getRestaurants = async () => {
   try {
     return await Restaurant.find();
   } catch (error) {
+    console.log(error.message);
     throw new Error(error.message);
   }
 };
@@ -31,6 +31,7 @@ export const getRestaurantById = async (id) => {
   try {
     return await Restaurant.findById(id);
   } catch (error) {
+    console.log(error.message);
     throw new Error(error.message);
   }
 };
@@ -41,6 +42,7 @@ export const updateRestaurant = async (id, updates) => {
     return await Restaurant.findByIdAndUpdate
         (id, updates, { new: true, runValidators: true });
     } catch (error) {
+      console.log(error.message);
       throw new Error(error.message);
     }
 };
@@ -50,78 +52,18 @@ export const deleteRestaurant = async (id) => {
   try {
     return await Restaurant.findByIdAndDelete(id);
   } catch (error) {
+    console.log(error.message);
     throw new Error(error.message);
   }
 };
 
-// Créer une nouvelle table pour un restaurant
-export const createTable = async (restaurantId, tableData) => {
-  try {
-    const table = new Table(tableData);
-    const restaurant = await Restaurant.findById(restaurantId);
-    restaurant.tables.push(table);
-    await restaurant.save();
-    return table;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-// Obtenir toutes les tables pour un restaurant
-export const getTables = async (restaurantId) => {
-  try {
-    const restaurant = await Restaurant.findById(restaurantId);
-    return restaurant.tables;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-// Obtenir une table par ID pour un restaurant
-export const getTableById = async (restaurantId, tableId) => {
-  try {
-    const restaurant = await Restaurant findById(restaurantId);
-    const table = restaurant.tables.id(tableId);
-    return table;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-};
-
-// Mettre à jour une table par ID pour un restaurant
-export const updateTable = async (restaurantId, tableId, updates) => {
-  try {
-    const restaurant = await Restaurant findById(restaurantId);
-    const table = restaurant.tables.id(tableId);
-    table.set(updates);
-    await restaurant.save();
-    return table;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-};
-
-// Supprimer une table par ID pour un restaurant
-export const deleteTable = async (restaurantId, tableId) => {
-  try {
-    const restaurant = await Restaurant.findById(restaurantId);
-    restaurant.tables.id(tableId).remove();
-    await restaurant.save();
-    } catch (error) {
-      throw new Error(error.message);
-    }
-};
-
-// Exporter les services de restaurant
+// Exporter les opérations de restaurant
 export default {
   createRestaurant,
   getRestaurants,
   getRestaurantById,
   updateRestaurant,
-  deleteRestaurant,
-  createTable,
-  getTables,
-  getTableById,
-  updateTable,
-  deleteTable
+  deleteRestaurant
 };
+
+// Path: src/server/services/tableService.js

@@ -6,9 +6,11 @@ import mongoose from 'mongoose';
 
 // Définir le schéma de la réservation
 const reservationSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  tableNumber: { type: mongoose.Schema.Types.ObjectId, ref: 'Table', required: true },
+  numberOfGuests: { type: Number, required: true },
   reservationDateTime: { type: Date, required: true },
-  tableNumber: { type: Number, required: true },
-  numberOfGuests: { type: Number, required: true }
+  specialRequests: { type: String }
 }, {
   timestamps: true
 });
