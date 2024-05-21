@@ -10,7 +10,7 @@ Ce projet est construit en utilisant les technologies suivantes :
 - **Node.js** : Un environnement d'exécution JavaScript côté serveur.
 - **Express** : Un framework web rapide, minimaliste et flexible pour Node.js.
 - **MongoDB** : Une base de données NoSQL, orientée documents, qui offre une haute performance et une grande facilité d'intégration.
-- **React.js** : Une bibliothèque JavaScript pour construire des interfaces utilisateur interactives.
+- **React.js** : Une bibliothèque JavaScript pour construire des interfaces utilisateur.
 
 ## Installation
 Clonez le dépôt sur votre machine locale :
@@ -58,84 +58,36 @@ Après avoir configuré vos variables d'environnement, vous êtes prêt à déma
 
 ## Utilisation de l'API
 Voici comment vous pouvez faire des requêtes à l'API :
-
-### Authentification
-
-- **Enregistrer un utilisateur** :
-  ```http
-  POST /api/v1/auth/register
-  {
-      "username": "john_doe",
-      "email": "john@example.com",
-      "password": "password123"
-  }
-  ```
-
-- **Se connecter** :
-  ```http
-  POST /api/v1/auth/login
-  {
-      "email": "john@example.com",
-      "password": "password123"
-  }
-  ```
-
-### Réservations
-
 - **Créer une réservation** :
   ```http
   POST /api/v1/reservations
   {
       "user_id": "abc123",
+      "restaurant_id": "xyz789",
       "date": "2023-04-12T20:00:00Z",
       "guests": 4
   }
   ```
-
 - **Obtenir toutes les réservations** :
   ```http
   GET /api/v1/reservations
   ```
-
 - **Obtenir une réservation par ID** :
   ```http
   GET /api/v1/reservations/:id
   ```
-
 - **Mettre à jour une réservation** :
   ```http
   PUT /api/v1/reservations/:id
   {
-      "date": "2023-04-15T20:00:00Z",
-      "guests": 2
+      "date": "2023-04-13T20:00:00Z",
+      "guests": 5
   }
   ```
-
 - **Supprimer une réservation** :
   ```http
   DELETE /api/v1/reservations/:id
   ```
-
-## Utilisation du Frontend
-Le frontend de cette application est construit avec React.js. Voici comment le configurer et le démarrer :
-
-1. **Accédez au dossier frontend** :
-   ```bash
-   cd frontend
-   ```
-
-2. **Installez les dépendances** :
-   ```bash
-   npm install
-   ```
-
-3. **Démarrez l'application frontend** :
-   ```bash
-   npm start
-   ```
-
-4. **Accédez à l'application dans votre navigateur** :
-   Ouvrez votre navigateur et accédez à `http://localhost:3000`.
 
 ### Documentation API
 
