@@ -1,3 +1,8 @@
+// app.js est le point d'entrée de l'application Express
+
+// Path: src/server/app.js
+
+// Importer les dépendances
 import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
@@ -13,6 +18,7 @@ import { authMiddleware } from './middleware/authMiddleware.js';
 // Charger les variables d'environnement
 dotenv.config();
 
+// Créer l'application Express
 const app = express();
 
 // Middleware de base
